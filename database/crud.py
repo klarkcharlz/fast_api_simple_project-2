@@ -2,7 +2,7 @@ import datetime
 import config
 import pydantic_models
 import bit
-from db import *
+from database.db import *
 
 
 @db_session
@@ -151,7 +151,7 @@ def get_user_info(user: pydantic_models.User):
 
 
 @db_session
-def update_user(user: pydantic_models.User):
+def update_user(user: pydantic_models.User_to_update):
     user_to_update = User[user.id]
     if user.tg_ID:
         user_to_update.tg_ID = user.tg_ID

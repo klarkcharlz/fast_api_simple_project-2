@@ -35,3 +35,21 @@ class Wallet(pydantic.BaseModel):
     address: str
     sended_transactions: list[Transaction] = []
     received_transactions: list[Transaction] = []
+
+
+class User_to_update(pydantic.BaseModel):
+    id: int
+    tg_ID: int = None
+    nick: str = None
+    create_date: datetime = None
+    wallet: 'Wallet' = None
+
+
+class User_to_create(pydantic.BaseModel):
+    tg_ID: int = None
+    nick: str = None
+
+
+class Create_Transaction(pydantic.BaseModel):
+    receiver_address: str
+    amount_btc_without_fee: float
