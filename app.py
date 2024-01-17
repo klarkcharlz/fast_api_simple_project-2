@@ -7,7 +7,6 @@ from fastapi import FastAPI
 import pydantic_models
 from database import crud
 
-
 api = FastAPI()
 
 
@@ -111,3 +110,16 @@ def get_user_by_tg_id(tg_id):
 def create_transaction(transaction: pydantic_models.Create_Transaction):
     print(transaction)
     return None
+
+
+@api.get("/get_user_transactions/{user_id:int}")
+@crud.db_session
+def get_user_transactions(user_id: int):
+    transactions = crud.get_user_transactions(user_id)
+    return transactions
+
+
+@api.get("/get_user_wallet/{user_id:int}")
+@crud.db_session
+def get_user_wallet(user_id):
+    return crud.get_wallet_info(crud.User[user_id].wallet)

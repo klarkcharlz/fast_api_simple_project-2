@@ -74,7 +74,7 @@ def create_transaction(
                               amount_btc_without_fee=amount_btc_without_fee,
                               date_of_transaction=datetime.now(),
                               tx_hash=tx_hash)
-    return transaction  # возвращаем объект с нашей транзакцией
+    return transaction.to_dict()  # возвращаем объект с нашей транзакцией
 
 
 @db_session
@@ -162,3 +162,15 @@ def update_user(user: pydantic_models.User_to_update):
     if user.wallet:
         user_to_update.wallet = user.wallet
     return user_to_update
+
+
+def get_user_transactions(user_id):
+    user = User.select(lambda u: u.id == user_id).first()
+    return {
+        "sended_transactions": [
+            transaction.to_dict() for transaction in list(user.sended_transactions)
+        ],
+        "received_transactions": [
+            transaction.to_dict() for transaction in list(user.received_transactions)
+        ]
+    }

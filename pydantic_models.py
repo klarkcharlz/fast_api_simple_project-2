@@ -53,3 +53,6 @@ class User_to_create(pydantic.BaseModel):
 class Create_Transaction(pydantic.BaseModel):
     receiver_address: str
     amount_btc_without_fee: float
+
+
+User_to_update.model_rebuild()
